@@ -1,0 +1,20 @@
+nombre:  Build 
+on: 
+  push: 
+    ramas: 
+      -  main 
+  pull_request: 
+    tipos: [ opened , synchronous , reabrir ]
+ trabajos: 
+  sonarqube: 
+    nombre:  SonarQube 
+    se ejecuta en:  windows-latest 
+    pasos: 
+      -  usos:  acciones/checkout@v4 
+        con: 
+          fetch-depth:  0   # Los clones superficiales deben estar deshabilitados para una mejor relevancia del análisis 
+      -  nombre:  SonarQube  Scan 
+        usos:  SonarSource/sonarqube-scan-action@v4 
+        env: 
+          GITHUB_TOKEN:  ${{  secrets.GITHUB_TOKEN  }}   # Necesario para obtener información de PR, si la hay 
+          SONAR_TOKEN:  ${{  secrets.SONAR_TOKEN  }}
