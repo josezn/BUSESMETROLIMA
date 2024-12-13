@@ -1,1 +1,10 @@
 travis encrypt --pro b85d88181a9d3959d83ba9d46f01a6d897248b6f
+addons:
+  sonarcloud:
+    organization: "josezn"
+    token:
+      secure: "**************************" # encrypted value of your token
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - sonar-scanner
